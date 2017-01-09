@@ -1,2 +1,9 @@
 Ports
 ID|LocalAddress|LocalPort|RemoteAddress|RemotePort|Protocol|PortState|Created|PortPID|PortProcessName|PortProcessPath|ProcessID|ItemSummaryID
+
+Tasks
+ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Creator|Flags|MD5|SHA1|SHA256|IsMD5InWhitelist|Name|TaskParameters|TaskPriority|TaskStatus|VirtualPath|WorkingDirectory|MostRecentRunTime|CreationDate|NextRunTime|MaxRunTime|ExitCode|WorkItemData|SignatureExists|SignatureVerified|SignatureDescription|CertificateIssuer|CertificateSubject|ItemSummaryID
+
+Prefetch
+ID|FullPath|ApplicationFileName|ApplicationFullPath|LastRun|Created|PrefetchHash|Size|SizeAsDisplayed|ReportedSize|ReportedSizeAsDisplayed|TimesExecuted|TimesExecutedAsDisplayed|ItemSummaryID
+
