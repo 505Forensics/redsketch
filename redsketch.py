@@ -3,7 +3,7 @@
 
 __author__ = "Matt Bromiley (@mbromileyDFIR)"
 __license__ = "Apache License v2.0"
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __maintainer__ = "Matt Bromiley (@mbromileyDFIR)"
 __email__ = "505forensics@gmail.com"
 __status__ = "Development"
@@ -121,6 +121,7 @@ def parse_it(data_type, redline_file):
         print "{} not found".format(data_type)
 
 def inspect(redline_file, print_out):
+    '''Inspection function. Analyzes a MANS file, finds the tables with data'''
     tables = []
     populated_tables = []
     conn = sqlite3.connect(redline_file)
@@ -174,7 +175,7 @@ def main():
     # Parser Options
     group = parser.add_argument_group()
     #group = parser.add_argument('--all', help='Enumerate and parse all available tables')
-    group = parser.add_argument('-p', '--parsers', metavar='DATA', help='Tables to Select (Comma separated). Use --all instead of -p to parse all tables. Use "list" to see a list of available table parsers')
+    group = parser.add_argument('-p', '--parsers', metavar='DATA', type=str, help='Tables to Select (Comma separated). Use --all instead of -p to parse all tables. Use "list" to see a list of available table parsers')
 
     # Output options
     group = parser.add_argument_group()
@@ -199,9 +200,11 @@ def main():
                 print table
             exit(0)
         if args.file and args.parsers:
-            output = parse_it(args.parsers, args.file)
-            for row in output:
-                print row
+            parse_list = [item for item in args.parsers.split(',')]
+            for item in parse_list:
+                output = parse_it(item, args.file)
+                for row in output:
+                    print row
 
 if __name__ == '__main__':
     main()
