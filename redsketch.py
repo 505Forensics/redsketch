@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''redsketch.py - Convert Mandiant Redline data into other formats '''
+'''redsketch.py - Convert Mandiant Redline MANS data into Timesketch data '''
 
 __author__ = "Matt Bromiley (@mbromileyDFIR)"
 __license__ = "Apache License v2.0"
@@ -13,6 +13,7 @@ import sqlite3
 import time
 
 parseable_tables = [
+    'Prefetch',
     'Ports'
 ]
 
@@ -22,8 +23,36 @@ def parse_it(data_type, redline_file):
     entries = []
     conn = sqlite3.connect(redline_file)
     c = conn.cursor()
+    # Prefetch table parsing
+    if data_type == 'Prefetch':
+        for idx, row in enumerate(c.execute('SELECT Created,LastRun,ApplicationFileName,ApplicationFullPath FROM Prefetch;')):
+
+            # Round 1 - Turn the Prefetch creationtime into a program execution event
+            # Set the epoch and timestamp values for the creation event
+            epoch = int(time.mktime(time.strptime(str(row[0]), "%Y-%m-%d %H:%M:%SZ")))
+            timestamp = row[0]
+
+            line = ["Program execution: {0}. Full Path: {1},"
+                    "{2},"
+                    "{3},"
+                    "Prefetch File Created".format(row[2],row[3],epoch,timestamp)]
+
+            entries.append(line)
+
+            # Round 2 - Turn the Prefetch Last Run time into a program execution event
+            epoch = int(time.mktime(time.strptime(str(row[1]), "%Y-%m-%d %H:%M:%SZ")))
+            timestamp = row[1]
+
+            line = ["Program execution: {0}. Full Path: {1},"
+                    "{2},"
+                    "{3},"
+                    "Prefetch Last Run Time".format(row[2],row[3],epoch,timestamp)]
+            entries.append(line)
+
+        return entries
+
     # Port table parsing
-    if data_type == 'Ports':
+    elif data_type == 'Ports':
         """Parse the incoming Redline data"""
 
         # Currently, the query selects all and the relevant fields are output.

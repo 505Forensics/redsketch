@@ -7,3 +7,4 @@ ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Crea
 Prefetch
 ID|FullPath|ApplicationFileName|ApplicationFullPath|LastRun|Created|PrefetchHash|Size|SizeAsDisplayed|ReportedSize|ReportedSizeAsDisplayed|TimesExecuted|TimesExecutedAsDisplayed|ItemSummaryID
 
+ApplicationFileName, ApplicationFullPath, Last Run, Created
