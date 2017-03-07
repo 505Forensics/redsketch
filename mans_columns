@@ -6,3 +6,9 @@ ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Crea
 
 Prefetch
 ID|FullPath|ApplicationFileName|ApplicationFullPath|LastRun|Created|PrefetchHash|Size|SizeAsDisplayed|ReportedSize|ReportedSizeAsDisplayed|TimesExecuted|TimesExecutedAsDisplayed|ItemSummaryID
+
+Processes
+ID|PID|ParentPID|Username|Path|ProcessName|Arguments|StartTime|KernelTimeElapsed|UserTimeElapsed|Hidden|SID|SIDType|ItemSummaryID
+
+System Information
+ID|AvailablePhysicalMemory|AvailablePhysicalMemoryAsDisplayed|BiosDate|BiosVersion|Domain|Hostname|InstallDate|LoggedInUser|MachineName|OsBitness|OsBuild|OsString|PatchLevel|NetworkAdapter|ProcessorIdentity|ProcessorType|ProductID|ProductName|Organization|Owner|SystemDate|SystemDirectory|TimeZoneDST|TimeZoneStandard|TotalPhysicalMemory|TotalPhysicalMemoryAsDisplayed|Uptime|LitmusScriptID|ContainmentState|ClockSkew|StateAgentStatus|ApplicationVersion|ApplicationConfigHash|PrimaryIPAddress|Drives|LoggedOnUser|ItemSummaryID

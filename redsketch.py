@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-'''redsketch.py - Convert Mandiant Redline MANS data into Timesketch data '''
+'''redsketch.py - Convert Mandiant Redline MANS data into Timesketch-friendly data '''
 
 __author__ = "Matt Bromiley (@mbromileyDFIR)"
 __license__ = "Apache License v2.0"
-__version__ = "0.3.0"
+__version__ = "1.0.0-dev"
 __maintainer__ = "Matt Bromiley (@mbromileyDFIR)"
 __email__ = "505forensics@gmail.com"
 __status__ = "Development"
@@ -16,6 +16,27 @@ parseable_tables = [
     'Prefetch',
     'Ports'
 ]
+
+def sysinfo(redline_file):
+    sysinfo = {}
+    '''System Information Parsing Function'''
+    conn = sqlite3.connect(redline_file)
+    c = conn.cursor()
+    c.execute('SELECT Hostname,MachineName,SystemDate,TimeZoneStandard,TotalPhysicalMemory,OsString,OsBitness,InstallDate,Domain,LoggedInUser FROM SystemInformation;')
+    attr_list = c.fetchone()
+    sysinfo = {
+        'Hostname' : attr_list[0],
+        'Machine Name' : attr_list[1],
+        'System Date' : attr_list[2],
+        'Time Zone' : attr_list[3],
+        'Total Physical Memory (bytes)' : attr_list[4],
+        'Operating System' : attr_list[5],
+        'Operating System Bitness' : attr_list[6],
+        'InstallDate' : attr_list[7],
+        'Domain' : attr_list[8],
+        'Logged In User' : attr_list[9]
+    }
+    print sysinfo
 
 def parse_it(data_type, redline_file):
     '''Master parsing function. Currently accepts unique values and then runs the corresponding code
@@ -171,11 +192,12 @@ def main():
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-f', '--file', metavar='FILE', help='MANS file to parse')
     group.add_argument('--inspect', metavar='FILE', help='MANS file to inspect\n\n\n')
+    group.add_argument('--sysinfo', metavar='FILE', help='MANS file to inspect\n\n\n')
 
     # Parser Options
     group = parser.add_argument_group()
     #group = parser.add_argument('--all', help='Enumerate and parse all available tables')
-    group = parser.add_argument('-p', '--parsers', metavar='DATA', type=str, help='Tables to Select (Comma separated). Use --all instead of -p to parse all tables. Use "list" to see a list of available table parsers')
+    group = parser.add_argument('-p', '--parsers', metavar='DATA', type=str, help='Tables to parse. Use "-p list" to see a list of available parsers')
 
     # Output options
     group = parser.add_argument_group()
@@ -184,9 +206,12 @@ def main():
     # Parse It!
     args = parser.parse_args()
 
+    if args.sysinfo:
+        sysinfo(args.sysinfo)
+
     if args.inspect:
         # Set headers to false, just in case someone attempts to inspect the MANS file
-        # and accidentially leaves the headers switch in
+        # and accidentally leaves the headers switch in
         args.headers = False
         inspect(args.inspect, True)
 
