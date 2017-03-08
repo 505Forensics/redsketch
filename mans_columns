@@ -1,11 +1,17 @@
 Ports
 ID|LocalAddress|LocalPort|RemoteAddress|RemotePort|Protocol|PortState|Created|PortPID|PortProcessName|PortProcessPath|ProcessID|ItemSummaryID
 
+Prefetch
+ID|FullPath|ApplicationFileName|ApplicationFullPath|LastRun|Created|PrefetchHash|Size|SizeAsDisplayed|ReportedSize|ReportedSizeAsDisplayed|TimesExecuted|TimesExecutedAsDisplayed|ItemSummaryID
+
+
 Tasks
 ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Creator|Flags|MD5|SHA1|SHA256|IsMD5InWhitelist|Name|TaskParameters|TaskPriority|TaskStatus|VirtualPath|WorkingDirectory|MostRecentRunTime|CreationDate|NextRunTime|MaxRunTime|ExitCode|WorkItemData|SignatureExists|SignatureVerified|SignatureDescription|CertificateIssuer|CertificateSubject|ItemSummaryID
 
-Prefetch
-ID|FullPath|ApplicationFileName|ApplicationFullPath|LastRun|Created|PrefetchHash|Size|SizeAsDisplayed|ReportedSize|ReportedSizeAsDisplayed|TimesExecuted|TimesExecutedAsDisplayed|ItemSummaryID
+TaskTriggers
+ID|TaskBegin|TaskEnd|TaskEnabled|Frequency|MaxRunTime|SessionChangeType|Subscription|Username|ValueQueries|TaskDelay|TaskID
+
+
 
 Processes
 ID|PID|ParentPID|Username|Path|ProcessName|Arguments|StartTime|KernelTimeElapsed|UserTimeElapsed|Hidden|SID|SIDType|ItemSummaryID
