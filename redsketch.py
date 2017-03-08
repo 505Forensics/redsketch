@@ -13,6 +13,7 @@ import sqlite3
 import time
 
 parseable_tables = [
+    'Files',
     'Prefetch',
     'Ports'
 ]
@@ -44,8 +45,75 @@ def parse_it(data_type, redline_file):
     entries = []
     conn = sqlite3.connect(redline_file)
     c = conn.cursor()
+    # Files table parsing
+    if data_type == 'files':
+        for idx, row in enumerate(c.execute('SELECT FullPath,FileName,Size,Created,Modified,Accessed,Changed,MD5,SHA1,SHA256 from Files;')):
+            epoch_created = int(time.mktime(time.strptime(str(row[3]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_modified = int(time.mktime(time.strptime(str(row[4]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_accessed = int(time.mktime(time.strptime(str(row[5]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_changed = int(time.mktime(time.strptime(str(row[6]), "%Y-%m-%d %H:%M:%SZ")))
+
+            # The following section deals with Unicode found in file names, such as Trademark and Copyright symbols.
+            try:
+                filename = row[1].encode('ascii','ignore')
+            except AttributeError:
+                filename = row[1]
+
+            # The following section tests for each of the three possible hashes, and includes in the string if found. Otherwise, "No hash available" is displayed
+            hashes = ''
+            if row[7]:
+                hashes += "{0} (MD5)".format(row[7])
+            if row[8]:
+                hashes += "{0} (SHA1)".format(row[8])
+            if row[9]:
+                hashes += "{0} (SHA256)".format(row[9])
+            if not row[7] and not row[8] and not row[9]:
+                hashes = "No hash available"
+
+            line = ["File Created: {0},"
+                    "{1},"
+                    "{2},"
+                    "File Creation,"
+                    "File Size: {3} bytes,"
+                    "Hash(es): {4}".format(filename, epoch_created, row[3], row[2], hashes)
+                    ]
+
+            entries.append(line)
+
+            line = ["File Modified: {0},"
+                    "{1},"
+                    "{2},"
+                    "File Modified,"
+                    "File Size: {3} bytes,"
+                    "Hash(es): {4}".format(filename, epoch_modified, row[3], row[2], hashes)
+                    ]
+
+            entries.append(line)
+
+            line = ["File Accessed: {0},"
+                    "{1},"
+                    "{2},"
+                    "File Accessed,"
+                    "File Size: {3} bytes,"
+                    "Hash(es): {4}".format(filename, epoch_accessed, row[3], row[2], hashes)
+                    ]
+
+            entries.append(line)
+
+            line = ["File Entry Modified: {0},"
+                    "{1},"
+                    "{2},"
+                    "File Entry Modified,"
+                    "File Size: {3} bytes,"
+                    "Hash(es): {4}".format(filename, epoch_changed, row[3], row[2], hashes)
+                    ]
+
+            entries.append(line)
+
+        return entries
+
     # Prefetch table parsing
-    if data_type == 'Prefetch':
+    if data_type == 'prefetch':
         for idx, row in enumerate(c.execute('SELECT Created,LastRun,ApplicationFileName,ApplicationFullPath FROM Prefetch;')):
 
             # Round 1 - Turn the Prefetch creationtime into a program execution event
@@ -73,7 +141,7 @@ def parse_it(data_type, redline_file):
         return entries
 
     # Port table parsing
-    elif data_type == 'Ports':
+    elif data_type == 'ports':
         """Parse the incoming Redline data"""
 
         # Currently, the query selects all and the relevant fields are output.
@@ -227,7 +295,7 @@ def main():
         if args.file and args.parsers:
             parse_list = [item for item in args.parsers.split(',')]
             for item in parse_list:
-                output = parse_it(item, args.file)
+                output = parse_it(item.lower(), args.file)
                 for row in output:
                     print row
 
