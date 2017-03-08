@@ -18,8 +18,21 @@ parseable_tables = [
     'Ports'
 ]
 
+def cat_hashes(hash1, hash2, hash3):
+    '''Used by multiple parsers to take three potential hash values and turn them into a combined string'''
+    hashes = ''
+    if hash1:
+        hashes += ', {0} (MD5)'.format(hash1)
+    if hash2:
+        hashes += ', {0} (SHA1)'.format(hash2)
+    if hash3:
+        hashes += ', {0} (SHA256)'.format(hash3)
+    if not hash1 and not hash2 and not hash3:
+        hashes = 'No hash available'
+    hashes = hashes[2:]
+    return hashes
+
 def sysinfo(redline_file):
-    sysinfo = {}
     '''System Information Parsing Function'''
     conn = sqlite3.connect(redline_file)
     c = conn.cursor()
@@ -45,6 +58,17 @@ def parse_it(data_type, redline_file):
     entries = []
     conn = sqlite3.connect(redline_file)
     c = conn.cursor()
+    # Tasks table parsing
+    if data_type == 'tasks':
+        c.execute('SELECT * from Tasks;')
+        task_list = c.fetchall()
+        c.execute('Select * from TaskTriggers;')
+        trigger_list = c.fetchall()
+
+        print task_list
+        print trigger_list
+
+
     # Files table parsing
     if data_type == 'files':
         for idx, row in enumerate(c.execute('SELECT FullPath,FileName,Size,Created,Modified,Accessed,Changed,MD5,SHA1,SHA256 from Files;')):
@@ -60,22 +84,14 @@ def parse_it(data_type, redline_file):
                 filename = row[1]
 
             # The following section tests for each of the three possible hashes, and includes in the string if found. Otherwise, "No hash available" is displayed
-            hashes = ''
-            if row[7]:
-                hashes += "{0} (MD5)".format(row[7])
-            if row[8]:
-                hashes += "{0} (SHA1)".format(row[8])
-            if row[9]:
-                hashes += "{0} (SHA256)".format(row[9])
-            if not row[7] and not row[8] and not row[9]:
-                hashes = "No hash available"
+            hashes = cat_hashes(row[7], row[8], row[9])
 
             line = ["File Created: {0},"
                     "{1},"
                     "{2},"
                     "File Creation,"
                     "File Size: {3} bytes,"
-                    "Hash(es): {4}".format(filename, epoch_created, row[3], row[2], hashes)
+                    "Hash: {4}".format(filename, epoch_created, row[3], row[2], hashes)
                     ]
 
             entries.append(line)
