@@ -1,17 +1,11 @@
+Files
+ID|FullPath|FilePath|FileName|FileExt|Drive|Device|Size|SizeAsDisplayed|Created|Modified|Accessed|Changed|FilenameCreated|FilenameModified|FilenameAccessed|FilenameChanged|FileAttributes|INode|INodeAsDisplayed|PeakEntropy|PeakCodeEntropy|Username|SID|SIDType|MD5|SHA1|SHA256|IsMD5InWhitelist|PEInfoTimestamp|PEInfoExportsTimestamp|FromPersistence|ItemSummaryID
+
 Ports
 ID|LocalAddress|LocalPort|RemoteAddress|RemotePort|Protocol|PortState|Created|PortPID|PortProcessName|PortProcessPath|ProcessID|ItemSummaryID
 
 Prefetch
 ID|FullPath|ApplicationFileName|ApplicationFullPath|LastRun|Created|PrefetchHash|Size|SizeAsDisplayed|ReportedSize|ReportedSizeAsDisplayed|TimesExecuted|TimesExecutedAsDisplayed|ItemSummaryID
-
-
-Tasks
-ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Creator|Flags|MD5|SHA1|SHA256|IsMD5InWhitelist|Name|TaskParameters|TaskPriority|TaskStatus|VirtualPath|WorkingDirectory|MostRecentRunTime|CreationDate|NextRunTime|MaxRunTime|ExitCode|WorkItemData|SignatureExists|SignatureVerified|SignatureDescription|CertificateIssuer|CertificateSubject|ItemSummaryID
-
-TaskTriggers
-ID|TaskBegin|TaskEnd|TaskEnabled|Frequency|MaxRunTime|SessionChangeType|Subscription|Username|ValueQueries|TaskDelay|TaskID
-
-
 
 Processes
 ID|PID|ParentPID|Username|Path|ProcessName|Arguments|StartTime|KernelTimeElapsed|UserTimeElapsed|Hidden|SID|SIDType|ItemSummaryID
@@ -19,5 +13,8 @@ ID|PID|ParentPID|Username|Path|ProcessName|Arguments|StartTime|KernelTimeElapsed
 System Information
 ID|AvailablePhysicalMemory|AvailablePhysicalMemoryAsDisplayed|BiosDate|BiosVersion|Domain|Hostname|InstallDate|LoggedInUser|MachineName|OsBitness|OsBuild|OsString|PatchLevel|NetworkAdapter|ProcessorIdentity|ProcessorType|ProductID|ProductName|Organization|Owner|SystemDate|SystemDirectory|TimeZoneDST|TimeZoneStandard|TotalPhysicalMemory|TotalPhysicalMemoryAsDisplayed|Uptime|LitmusScriptID|ContainmentState|ClockSkew|StateAgentStatus|ApplicationVersion|ApplicationConfigHash|PrimaryIPAddress|Drives|LoggedOnUser|ItemSummaryID
 
-Files
-ID|FullPath|FilePath|FileName|FileExt|Drive|Device|Size|SizeAsDisplayed|Created|Modified|Accessed|Changed|FilenameCreated|FilenameModified|FilenameAccessed|FilenameChanged|FileAttributes|INode|INodeAsDisplayed|PeakEntropy|PeakCodeEntropy|Username|SID|SIDType|MD5|SHA1|SHA256|IsMD5InWhitelist|PEInfoTimestamp|PEInfoExportsTimestamp|FromPersistence|ItemSummaryID
+Tasks
+ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Creator|Flags|MD5|SHA1|SHA256|IsMD5InWhitelist|Name|TaskParameters|TaskPriority|TaskStatus|VirtualPath|WorkingDirectory|MostRecentRunTime|CreationDate|NextRunTime|MaxRunTime|ExitCode|WorkItemData|SignatureExists|SignatureVerified|SignatureDescription|CertificateIssuer|CertificateSubject|ItemSummaryID
+
+TaskTriggers
+ID|TaskBegin|TaskEnd|TaskEnabled|Frequency|MaxRunTime|SessionChangeType|Subscription|Username|ValueQueries|TaskDelay|TaskID
