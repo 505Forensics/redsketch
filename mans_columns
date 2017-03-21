@@ -18,3 +18,6 @@ ID|AccountLogonType|AccountName|AccountRunLevel|ApplicationName|TaskComment|Crea
 
 TaskTriggers
 ID|TaskBegin|TaskEnd|TaskEnabled|Frequency|MaxRunTime|SessionChangeType|Subscription|Username|ValueQueries|TaskDelay|TaskID
+
+Users
+ID|Description|Disabled|FullName|GroupNames|HomeDirectory|LastLogin|LockedOut|PasswordRequired|ScriptPath|SID|SIDType|Username|UserPasswordAge|ItemSummaryID
