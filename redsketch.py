@@ -11,6 +11,7 @@ __status__ = "Development"
 import argparse
 import sqlite3
 import time
+import calendar
 
 parseable_tables = [
     'Files',
@@ -72,10 +73,10 @@ def parse_it(data_type, redline_file):
     # Files table parsing
     if data_type == 'files':
         for idx, row in enumerate(c.execute('SELECT FullPath,FileName,Size,Created,Modified,Accessed,Changed,MD5,SHA1,SHA256 from Files;')):
-            epoch_created = int(time.mktime(time.strptime(str(row[3]), "%Y-%m-%d %H:%M:%SZ")))
-            epoch_modified = int(time.mktime(time.strptime(str(row[4]), "%Y-%m-%d %H:%M:%SZ")))
-            epoch_accessed = int(time.mktime(time.strptime(str(row[5]), "%Y-%m-%d %H:%M:%SZ")))
-            epoch_changed = int(time.mktime(time.strptime(str(row[6]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_created = int(calendar.timegm(time.strptime(str(row[3]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_modified = int(calendar.timegm(time.strptime(str(row[4]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_accessed = int(calendar.timegm(time.strptime(str(row[5]), "%Y-%m-%d %H:%M:%SZ")))
+            epoch_changed = int(calendar.timegm(time.strptime(str(row[6]), "%Y-%m-%d %H:%M:%SZ")))
 
             # The following section deals with Unicode found in file names, such as Trademark and Copyright symbols.
             try:
